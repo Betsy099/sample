@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <style>
+    :root {
+      --primary-color: #0f0f1a;
+      --secondary-color: #1a1a2e;
+      --accent-color: #00c3ff;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0c0;
+      --border-radius: 8px;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--secondary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-speed);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-color);
+      background-color: rgba(0, 195, 255, 0.1);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+    }
+
+    /* Settings Form */
+    .settings-form {
+      background-color: var(--secondary-color);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      color: var(--text-color);
+      font-size: 1rem;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-checkbox input {
+      width: 1.2rem;
+      height: 1.2rem;
+      accent-color: var(--accent-color);
+    }
+
+    .checkbox-label {
+      font-weight: 500;
+    }
+
+    .checkbox-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .submit-button {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      margin-top: 1rem;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 195, 255, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 4rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo">WorkFlix</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace">Workspace</a>
+      <a href="/team">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings" class="active">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section-header">
+      <h1 class="section-title">Account Settings</h1>
+      <p class="section-description">Manage your preferences and account information</p>
+    </div>
+
+    <form class="settings-form">
+      <div class="form-group">
+        <label class="form-label" for="name">Full Name</label>
+        <input type="text" id="name" class="form-input" value="Alex Morgan">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" class="form-input" value="alex.morgan@example.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="role">Role</label>
+        <select id="role" class="form-select">
+          <option>Designer</option>
+          <option>Developer</option>
+          <option>Product Manager</option>
+          <option>Marketing</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="timezone">Timezone</label>
+        <select id="timezone" class="form-select">
+          <option>(UTC-05:00) Eastern Time</option>
+          <option>(UTC-08:00) Pacific Time</option>
+          <option>(UTC+00:00) London</option>
+          <option>(UTC+01:00) Berlin</option>
+          <option>(UTC+09:00) Tokyo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Notifications</label>
+        <div class="form-checkbox">
+          <input type="checkbox" id="email-notifications" checked>
+          <div>
+            <div class="checkbox-label">Email Notifications</div>
+            <div class="checkbox-description">Receive email updates about your projects and tasks</div>
+          </div>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="push-notifications" checked>
+          <div>
+            <div class="checkbox-label">Push Notifications</div>
+            <div class="checkbox-description">Receive browser notifications for important updates</div>
+          </div>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="marketing-emails">
+          <div>
+            <div class="checkbox-label">Marketing Emails</div>
+            <div class="checkbox-description">Receive occasional updates about new features and tips</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Privacy</label>
+        <div class="form-checkbox">
+          <input type="checkbox" id="profile-public">
+          <div>
+            <div class="checkbox-label">Public Profile</div>
+            <div class="checkbox-description">Allow other team members to see your profile information</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button">Save Changes</button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace">Workspace</a>
+      <a href="/team">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings">Settings</a>
+    </div>
+    <p class="copyright">© 2023 WorkFlix. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.settings-form');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Settings saved successfully!');
+      });
+    });
+  </script>
+</body>
+</html>
