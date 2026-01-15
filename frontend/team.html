@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team</title>
+  <style>
+    :root {
+      --primary-color: #0f0f1a;
+      --secondary-color: #1a1a2e;
+      --accent-color: #00c3ff;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0c0;
+      --border-radius: 8px;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--secondary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-speed);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-color);
+      background-color: rgba(0, 195, 255, 0.1);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--text-color);
+    }
+
+    .search-bar {
+      background-color: var(--secondary-color);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: 0.8rem 1.2rem;
+      width: 300px;
+      color: var(--text-color);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color var(--transition-speed);
+    }
+
+    .search-bar:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Team Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background-color: var(--secondary-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-color: var(--accent-color);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #00c3ff, #0066ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1rem;
+    }
+
+    .team-name {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+      color: var(--accent-color);
+      font-size: 0.95rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .team-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .team-skills {
+      margin-bottom: 1.5rem;
+    }
+
+    .skills-title {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background-color: rgba(0, 195, 255, 0.2);
+      color: var(--accent-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .contact-button {
+      flex: 1;
+      background: none;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.6rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all var(--transition-speed);
+      font-weight: 500;
+    }
+
+    .contact-button:hover {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 4rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo">WorkFlix</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace">Workspace</a>
+      <a href="/team" class="active">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section-header">
+      <h1 class="section-title">Team Directory</h1>
+      <input type="text" class="search-bar" placeholder="Search team members...">
+    </div>
+
+    <div class="team-grid">
+      <!-- Member 1 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👨‍💻</div>
+          <h3 class="team-name">Jordan Smith</h3>
+          <div class="team-role">Frontend Developer</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">18</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">92%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">React</div>
+              <div class="skill-tag">Vue.js</div>
+              <div class="skill-tag">CSS</div>
+              <div class="skill-tag">TypeScript</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👩‍💼</div>
+          <h3 class="team-name">Taylor Reed</h3>
+          <div class="team-role">Product Manager</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">24</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">96%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">Agile</div>
+              <div class="skill-tag">Scrum</div>
+              <div class="skill-tag">Roadmapping</div>
+              <div class="skill-tag">Analytics</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👨‍🎨</div>
+          <h3 class="team-name">Morgan Lee</h3>
+          <div class="team-role">UX Designer</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">15</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">89%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">Figma</div>
+              <div class="skill-tag">Prototyping</div>
+              <div class="skill-tag">User Research</div>
+              <div class="skill-tag">Accessibility</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member 4 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👩‍🔬</div>
+          <h3 class="team-name">Casey Johnson</h3>
+          <div class="team-role">Data Scientist</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">12</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">94%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">Python</div>
+              <div class="skill-tag">Machine Learning</div>
+              <div class="skill-tag">SQL</div>
+              <div class="skill-tag">Visualization</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member 5 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👨‍🔧</div>
+          <h3 class="team-name">Riley Kim</h3>
+          <div class="team-role">DevOps Engineer</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">20</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">98%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">AWS</div>
+              <div class="skill-tag">Docker</div>
+              <div class="skill-tag">Kubernetes</div>
+              <div class="skill-tag">CI/CD</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member 6 -->
+      <div class="team-card">
+        <div class="card-header">
+          <div class="team-avatar">👩‍💼</div>
+          <h3 class="team-name">Alex Morgan</h3>
+          <div class="team-role">Marketing Director</div>
+        </div>
+        <div class="card-body">
+          <div class="team-stats">
+            <div class="stat">
+              <div class="stat-value">32</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">87%</div>
+              <div class="stat-label">Completion</div>
+            </div>
+          </div>
+          <div class="team-skills">
+            <div class="skills-title">Skills</div>
+            <div class="skills-list">
+              <div class="skill-tag">Campaigns</div>
+              <div class="skill-tag">Branding</div>
+              <div class="skill-tag">SEO</div>
+              <div class="skill-tag">Analytics</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="contact-button">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace">Workspace</a>
+      <a href="/team">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings">Settings</a>
+    </div>
+    <p class="copyright">© 2023 WorkFlix. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Search functionality
+      const searchBar = document.querySelector('.search-bar');
+      const teamCards = document.querySelectorAll('.team-card');
+      
+      searchBar.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        teamCards.forEach(card => {
+          const name = card.querySelector('.team-name').textContent.toLowerCase();
+          const role = card.querySelector('.team-role').textContent.toLowerCase();
+          
+          if (name.includes(searchTerm) || role.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+      
+      // Add hover effect to cards
+      const cards = document.querySelectorAll('.team-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
