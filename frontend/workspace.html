@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace</title>
+  <style>
+    :root {
+      --primary-color: #0f0f1a;
+      --secondary-color: #1a1a2e;
+      --accent-color: #00c3ff;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0c0;
+      --border-radius: 8px;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--secondary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-speed);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-color);
+      background-color: rgba(0, 195, 255, 0.1);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--text-color);
+    }
+
+    .workspace-stats {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background-color: var(--secondary-color);
+      border-radius: var(--border-radius);
+      padding: 1rem 1.5rem;
+      text-align: center;
+      min-width: 150px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Task Board */
+    .task-board {
+      margin-top: 2rem;
+    }
+
+    .board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .board-title {
+      font-size: 1.5rem;
+    }
+
+    .view-options {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .view-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all var(--transition-speed);
+    }
+
+    .view-btn.active,
+    .view-btn:hover {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      border-color: var(--accent-color);
+    }
+
+    /* Columns */
+    .board-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .column {
+      background-color: var(--secondary-color);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .column-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .task-count {
+      background-color: rgba(0, 195, 255, 0.2);
+      color: var(--accent-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Tasks */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .task-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius);
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all var(--transition-speed);
+      cursor: pointer;
+    }
+
+    .task-card:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .task-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .task-project {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.8rem;
+    }
+
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .task-priority {
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .priority-high {
+      background-color: rgba(255, 70, 70, 0.2);
+      color: #ff4646;
+    }
+
+    .priority-medium {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .priority-low {
+      background-color: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+    }
+
+    /* Progress Bar */
+    .task-progress {
+      height: 6px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin: 0.8rem 0;
+      overflow: hidden;
+    }
+
+    .progress-inner {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .progress-25 { width: 25%; background-color: #ff4646; }
+    .progress-50 { width: 50%; background-color: #ffc107; }
+    .progress-75 { width: 75%; background-color: #00c3ff; }
+    .progress-100 { width: 100%; background-color: #28a745; }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 4rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo">WorkFlix</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace" class="active">Workspace</a>
+      <a href="/team">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section-header">
+      <h1 class="section-title">My Workspace</h1>
+      <div class="workspace-stats">
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Tasks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Teams</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-board">
+      <div class="board-header">
+        <h2 class="board-title">Task Board</h2>
+        <div class="view-options">
+          <button class="view-btn active">Board</button>
+          <button class="view-btn">List</button>
+          <button class="view-btn">Calendar</button>
+        </div>
+      </div>
+
+      <div class="board-columns">
+        <!-- To Do Column -->
+        <div class="column">
+          <div class="column-header">
+            <h3 class="column-title">To Do</h3>
+            <span class="task-count">4</span>
+          </div>
+          <div class="task-list">
+            <div class="task-card">
+              <div class="task-title">Create user personas</div>
+              <div class="task-project">Mobile App Redesign</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-25"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 15</span>
+                <span class="task-priority priority-high">High</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Research competitor features</div>
+              <div class="task-project">Q3 Marketing Campaign</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-0"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 20</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Update documentation</div>
+              <div class="task-project">Infrastructure Upgrade</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-0"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 18</span>
+                <span class="task-priority priority-low">Low</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Prepare security report</div>
+              <div class="task-project">Security Audit 2023</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-0"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 25</span>
+                <span class="task-priority priority-high">High</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="column">
+          <div class="column-header">
+            <h3 class="column-title">In Progress</h3>
+            <span class="task-count">3</span>
+          </div>
+          <div class="task-list">
+            <div class="task-card">
+              <div class="task-title">Design dashboard mockups</div>
+              <div class="task-project">AI Integration Project</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-50"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 12</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Implement authentication</div>
+              <div class="task-project">Mobile App Redesign</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-75"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 10</span>
+                <span class="task-priority priority-high">High</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Conduct user testing</div>
+              <div class="task-project">Global Expansion Plan</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-25"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 14</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Column -->
+        <div class="column">
+          <div class="column-header">
+            <h3 class="column-title">Review</h3>
+            <span class="task-count">2</span>
+          </div>
+          <div class="task-list">
+            <div class="task-card">
+              <div class="task-title">Finalize marketing copy</div>
+              <div class="task-project">Q3 Marketing Campaign</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-100"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 5</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Code review for API endpoints</div>
+              <div class="task-project">Infrastructure Upgrade</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-100"></div>
+              </div>
+              <div class="task-meta">
+                <span>Due: Jun 8</span>
+                <span class="task-priority priority-high">High</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="column">
+          <div class="column-header">
+            <h3 class="column-title">Done</h3>
+            <span class="task-count">3</span>
+          </div>
+          <div class="task-list">
+            <div class="task-card">
+              <div class="task-title">Setup CI/CD pipeline</div>
+              <div class="task-project">Infrastructure Upgrade</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-100"></div>
+              </div>
+              <div class="task-meta">
+                <span>Completed: May 28</span>
+                <span class="task-priority priority-high">High</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Create wireframes</div>
+              <div class="task-project">Mobile App Redesign</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-100"></div>
+              </div>
+              <div class="task-meta">
+                <span>Completed: May 30</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-title">Analyze market data</div>
+              <div class="task-project">Global Expansion Plan</div>
+              <div class="task-progress">
+                <div class="progress-inner progress-100"></div>
+              </div>
+              <div class="task-meta">
+                <span>Completed: Jun 1</span>
+                <span class="task-priority priority-medium">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/discover">Discover</a>
+      <a href="/workspace">Workspace</a>
+      <a href="/team">Team</a>
+      <a href="/profile">Profile</a>
+      <a href="/settings">Settings</a>
+    </div>
+    <p class="copyright">© 2023 WorkFlix. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // View toggle functionality
+      const viewButtons = document.querySelectorAll('.view-btn');
+      
+      viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          viewButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // Task card interaction
+      const taskCards = document.querySelectorAll('.task-card');
+      
+      taskCards.forEach(card => {
+        card.addEventListener('click', function() {
+          alert(`Opening details for: ${this.querySelector('.task-title').textContent}`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
